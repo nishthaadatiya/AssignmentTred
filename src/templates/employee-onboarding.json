@@ -1,0 +1,223 @@
+{
+  "name": "Complete Employee Onboarding",
+  "description": "End-to-end onboarding workflow for new hires including documentation, IT setup, approvals, and training",
+  "category": "HR Operations",
+  "nodes": [
+    {
+      "id": "start_1",
+      "type": "start",
+      "position": { "x": 250, "y": 50 },
+      "data": {
+        "label": "Start",
+        "title": "Onboarding Kickoff",
+        "description": "New employee onboarding process initiated",
+        "metadata": {
+          "initiator": "HR Bot",
+          "batch": "Jan-2025",
+          "priority": "high"
+        }
+      }
+    },
+    {
+      "id": "task_1",
+      "type": "task",
+      "position": { "x": 250, "y": 150 },
+      "data": {
+        "label": "Task",
+        "title": "Collect Personal Documents",
+        "description": "Gather all required documents: PAN Card, Aadhaar, Bank Details, Address Proof, Educational Certificates, Previous Employment Records",
+        "assignee": "hr_team@company.com",
+        "dueDate": "2025-01-10",
+        "priority": "high",
+        "estimatedHours": 2
+      }
+    },
+    {
+      "id": "task_2",
+      "type": "task",
+      "position": { "x": 250, "y": 270 },
+      "data": {
+        "label": "Task",
+        "title": "IT Access Setup",
+        "description": "Create company email ID, Slack workspace access, VPN credentials, HRMS login, project management tools access",
+        "assignee": "it-support@company.com",
+        "dueDate": "2025-01-11",
+        "priority": "high",
+        "estimatedHours": 3
+      }
+    },
+    {
+      "id": "approval_1",
+      "type": "approval",
+      "position": { "x": 250, "y": 390 },
+      "data": {
+        "label": "Approval",
+        "title": "Manager Approval for Device Allocation",
+        "description": "Manager reviews and approves laptop, mobile, and other device requirements",
+        "assignee": "reporting_manager@company.com",
+        "approverRole": "Reporting Manager",
+        "autoApproveThreshold": 24,
+        "escalationHours": 48
+      }
+    },
+    {
+      "id": "auto_1",
+      "type": "automated",
+      "position": { "x": 250, "y": 510 },
+      "data": {
+        "label": "Automated",
+        "title": "Send Welcome Email",
+        "description": "Automated welcome email with company handbook and first-day instructions",
+        "automationId": "send-email",
+        "automationParams": {
+          "to": "newhire@company.com",
+          "subject": "Welcome to the Company!",
+          "body": "Dear New Hire, Welcome aboard! Your onboarding is in progress. You will receive your credentials and schedule shortly. Please review the attached employee handbook.",
+          "attachments": ["employee_handbook.pdf", "code_of_conduct.pdf"]
+        }
+      }
+    },
+    {
+      "id": "auto_2",
+      "type": "automated",
+      "position": { "x": 250, "y": 630 },
+      "data": {
+        "label": "Automated",
+        "title": "Generate Employee ID Card",
+        "description": "Auto-generate employee ID card with photo and send to print desk",
+        "automationId": "generate-pdf",
+        "automationParams": {
+          "template": "id_card_template",
+          "fileName": "employee_id_card.pdf",
+          "recipient": "print-desk@company.com",
+          "includePhoto": true,
+          "includeQRCode": true
+        }
+      }
+    },
+    {
+      "id": "task_3",
+      "type": "task",
+      "position": { "x": 250, "y": 750 },
+      "data": {
+        "label": "Task",
+        "title": "Employee Induction Training",
+        "description": "Comprehensive training covering corporate culture, code of conduct, team structure, policies, and procedures",
+        "assignee": "training@company.com",
+        "dueDate": "2025-01-15",
+        "priority": "medium",
+        "estimatedHours": 8,
+        "location": "Training Room A"
+      }
+    },
+    {
+      "id": "approval_2",
+      "type": "approval",
+      "position": { "x": 250, "y": 870 },
+      "data": {
+        "label": "Approval",
+        "title": "HR Final Verification",
+        "description": "HRBP verifies all documents, training completion, and system access before final approval",
+        "assignee": "hrbp@company.com",
+        "approverRole": "HRBP",
+        "autoApproveThreshold": 72,
+        "checklistItems": ["Documents verified", "Training completed", "Systems access granted"]
+      }
+    },
+    {
+      "id": "auto_3",
+      "type": "automated",
+      "position": { "x": 250, "y": 990 },
+      "data": {
+        "label": "Automated",
+        "title": "Send Calendar Invite for Team Introduction",
+        "description": "Schedule team introduction meeting and send calendar invite",
+        "automationId": "send-email",
+        "automationParams": {
+          "to": "newhire@company.com",
+          "cc": "team@company.com",
+          "subject": "Team Introduction Meeting",
+          "body": "You are invited to meet your team members. Please join us for an informal introduction session.",
+          "meetingDuration": "60 minutes"
+        }
+      }
+    },
+    {
+      "id": "end_1",
+      "type": "end",
+      "position": { "x": 250, "y": 1110 },
+      "data": {
+        "label": "End",
+        "title": "Onboarding Completed Successfully",
+        "message": "Employee onboarding process completed. Welcome to the team!",
+        "summary": true,
+        "notifyStakeholders": ["hr@company.com", "manager@company.com"]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start_1",
+      "target": "task_1",
+      "type": "default",
+      "data": { "label": "Initiate Onboarding" }
+    },
+    {
+      "id": "e2",
+      "source": "task_1",
+      "target": "task_2",
+      "type": "default",
+      "data": { "label": "Documents Collected" }
+    },
+    {
+      "id": "e3",
+      "source": "task_2",
+      "target": "approval_1",
+      "type": "default",
+      "data": { "label": "IT Setup Complete" }
+    },
+    {
+      "id": "e4",
+      "source": "approval_1",
+      "target": "auto_1",
+      "type": "default",
+      "data": { "label": "Device Approved" }
+    },
+    {
+      "id": "e5",
+      "source": "auto_1",
+      "target": "auto_2",
+      "type": "default",
+      "data": { "label": "Welcome Email Sent" }
+    },
+    {
+      "id": "e6",
+      "source": "auto_2",
+      "target": "task_3",
+      "type": "default",
+      "data": { "label": "ID Card Generated" }
+    },
+    {
+      "id": "e7",
+      "source": "task_3",
+      "target": "approval_2",
+      "type": "default",
+      "data": { "label": "Training Completed" }
+    },
+    {
+      "id": "e8",
+      "source": "approval_2",
+      "target": "auto_3",
+      "type": "default",
+      "data": { "label": "Final Verification Done" }
+    },
+    {
+      "id": "e9",
+      "source": "auto_3",
+      "target": "end_1",
+      "type": "default",
+      "data": { "label": "Team Introduction Scheduled" }
+    }
+  ]
+}

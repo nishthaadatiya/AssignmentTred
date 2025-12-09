@@ -1,0 +1,292 @@
+{
+  "name": "Leave Request Workflow",
+  "description": "Complete leave request and approval workflow with manager and HR approvals, calendar updates, and notifications",
+  "category": "HR Operations",
+  "nodes": [
+    {
+      "id": "start_1",
+      "type": "start",
+      "position": { "x": 250, "y": 50 },
+      "data": {
+        "label": "Start",
+        "title": "Leave Request Initiated",
+        "description": "Employee submits leave request through HRMS portal",
+        "metadata": {
+          "requestType": "leave",
+          "channel": "HRMS Portal"
+        }
+      }
+    },
+    {
+      "id": "task_1",
+      "type": "task",
+      "position": { "x": 250, "y": 150 },
+      "data": {
+        "label": "Task",
+        "title": "Fill Leave Application Form",
+        "description": "Employee fills complete leave application with dates, type (casual/sick/earned), reason, and emergency contact details",
+        "assignee": "employee@company.com",
+        "dueDate": "2025-01-08",
+        "priority": "medium",
+        "formFields": ["Leave Type", "Start Date", "End Date", "Reason", "Emergency Contact", "Work Handover Plan"]
+      }
+    },
+    {
+      "id": "task_2",
+      "type": "task",
+      "position": { "x": 250, "y": 270 },
+      "data": {
+        "label": "Task",
+        "title": "Check Leave Balance",
+        "description": "System automatically checks available leave balance and eligibility",
+        "assignee": "hrms_system@company.com",
+        "priority": "high",
+        "automated": true,
+        "validations": ["Sufficient balance", "No overlapping leaves", "Notice period met"]
+      }
+    },
+    {
+      "id": "approval_1",
+      "type": "approval",
+      "position": { "x": 250, "y": 390 },
+      "data": {
+        "label": "Approval",
+        "title": "Reporting Manager Approval",
+        "description": "Manager reviews leave request, checks team availability, and approves or rejects",
+        "assignee": "manager@company.com",
+        "approverRole": "Reporting Manager",
+        "autoApproveThreshold": 24,
+        "escalationHours": 48,
+        "criteria": ["Team coverage available", "No critical deadlines", "Advance notice given"]
+      }
+    },
+    {
+      "id": "approval_2",
+      "type": "approval",
+      "position": { "x": 100, "y": 510 },
+      "data": {
+        "label": "Approval",
+        "title": "HR Approval (Extended Leave)",
+        "description": "HR approval required for leaves longer than 5 days or special circumstances",
+        "assignee": "hr@company.com",
+        "approverRole": "HR Manager",
+        "autoApproveThreshold": 48,
+        "condition": "Leave duration > 5 days OR Special leave type"
+      }
+    },
+    {
+      "id": "auto_1",
+      "type": "automated",
+      "position": { "x": 400, "y": 510 },
+      "data": {
+        "label": "Automated",
+        "title": "Auto-Approve Short Leave",
+        "description": "Automatically approve leaves of 2 days or less if manager approved",
+        "automationId": "auto-approve",
+        "automationParams": {
+          "condition": "duration <= 2 days AND manager_approved = true",
+          "notifyEmployee": true,
+          "updateLeaveBalance": true
+        }
+      }
+    },
+    {
+      "id": "auto_2",
+      "type": "automated",
+      "position": { "x": 250, "y": 630 },
+      "data": {
+        "label": "Automated",
+        "title": "Update Leave Management System",
+        "description": "Update HRMS with approved leave details and deduct from balance",
+        "automationId": "update-system",
+        "automationParams": {
+          "system": "HRMS",
+          "action": "deduct_leave_balance",
+          "updateAttendance": true,
+          "generateLeaveSlip": true
+        }
+      }
+    },
+    {
+      "id": "auto_3",
+      "type": "automated",
+      "position": { "x": 250, "y": 750 },
+      "data": {
+        "label": "Automated",
+        "title": "Update Team Calendar",
+        "description": "Block dates in team calendar and mark employee as on leave",
+        "automationId": "update-calendar",
+        "automationParams": {
+          "calendar": "Google Calendar",
+          "eventType": "Out of Office",
+          "visibility": "team",
+          "addAutoReply": true
+        }
+      }
+    },
+    {
+      "id": "auto_4",
+      "type": "automated",
+      "position": { "x": 250, "y": 870 },
+      "data": {
+        "label": "Automated",
+        "title": "Send Approval Notification",
+        "description": "Send email and SMS notification to employee about leave approval",
+        "automationId": "send-email",
+        "automationParams": {
+          "to": "employee@company.com",
+          "subject": "Leave Request Approved",
+          "body": "Your leave request from [start_date] to [end_date] has been approved. Please ensure proper handover before your leave.",
+          "sms": true,
+          "pushNotification": true
+        }
+      }
+    },
+    {
+      "id": "auto_5",
+      "type": "automated",
+      "position": { "x": 250, "y": 990 },
+      "data": {
+        "label": "Automated",
+        "title": "Notify Team Members",
+        "description": "Inform team members about employee's absence and backup arrangements",
+        "automationId": "send-email",
+        "automationParams": {
+          "to": "team@company.com",
+          "subject": "Team Member On Leave",
+          "body": "[Employee Name] will be on leave from [start_date] to [end_date]. For urgent matters, please contact [backup_person].",
+          "includeBackupContact": true
+        }
+      }
+    },
+    {
+      "id": "task_3",
+      "type": "task",
+      "position": { "x": 50, "y": 630 },
+      "data": {
+        "label": "Task",
+        "title": "Leave Rejected - Notify Employee",
+        "description": "Send rejection notification with reason and suggest alternative dates",
+        "assignee": "hrms_system@company.com",
+        "automated": true,
+        "includeReason": true,
+        "suggestAlternatives": true
+      }
+    },
+    {
+      "id": "end_1",
+      "type": "end",
+      "position": { "x": 250, "y": 1110 },
+      "data": {
+        "label": "End",
+        "title": "Leave Request Processed",
+        "message": "Leave request workflow completed successfully",
+        "summary": true
+      }
+    },
+    {
+      "id": "end_2",
+      "type": "end",
+      "position": { "x": 50, "y": 750 },
+      "data": {
+        "label": "End",
+        "title": "Leave Request Rejected",
+        "message": "Leave request was rejected",
+        "summary": true
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start_1",
+      "target": "task_1",
+      "type": "default",
+      "data": { "label": "Request Initiated" }
+    },
+    {
+      "id": "e2",
+      "source": "task_1",
+      "target": "task_2",
+      "type": "default",
+      "data": { "label": "Form Submitted" }
+    },
+    {
+      "id": "e3",
+      "source": "task_2",
+      "target": "approval_1",
+      "type": "default",
+      "data": { "label": "Balance Verified" }
+    },
+    {
+      "id": "e4",
+      "source": "approval_1",
+      "target": "approval_2",
+      "type": "default",
+      "data": { "label": "Manager Approved (Extended Leave)" }
+    },
+    {
+      "id": "e5",
+      "source": "approval_1",
+      "target": "auto_1",
+      "type": "default",
+      "data": { "label": "Manager Approved (Short Leave)" }
+    },
+    {
+      "id": "e6",
+      "source": "approval_1",
+      "target": "task_3",
+      "type": "default",
+      "data": { "label": "Manager Rejected" }
+    },
+    {
+      "id": "e7",
+      "source": "approval_2",
+      "target": "auto_2",
+      "type": "default",
+      "data": { "label": "HR Approved" }
+    },
+    {
+      "id": "e8",
+      "source": "auto_1",
+      "target": "auto_2",
+      "type": "default",
+      "data": { "label": "Auto-Approved" }
+    },
+    {
+      "id": "e9",
+      "source": "auto_2",
+      "target": "auto_3",
+      "type": "default",
+      "data": { "label": "System Updated" }
+    },
+    {
+      "id": "e10",
+      "source": "auto_3",
+      "target": "auto_4",
+      "type": "default",
+      "data": { "label": "Calendar Updated" }
+    },
+    {
+      "id": "e11",
+      "source": "auto_4",
+      "target": "auto_5",
+      "type": "default",
+      "data": { "label": "Employee Notified" }
+    },
+    {
+      "id": "e12",
+      "source": "auto_5",
+      "target": "end_1",
+      "type": "default",
+      "data": { "label": "Team Notified" }
+    },
+    {
+      "id": "e13",
+      "source": "task_3",
+      "target": "end_2",
+      "type": "default",
+      "data": { "label": "Rejection Processed" }
+    }
+  ]
+}

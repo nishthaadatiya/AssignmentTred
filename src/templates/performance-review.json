@@ -1,0 +1,384 @@
+{
+  "name": "Performance Review Cycle",
+  "description": "Comprehensive annual performance review workflow including self-assessment, manager review, calibration, goal setting, and feedback",
+  "category": "Performance Management",
+  "nodes": [
+    {
+      "id": "start_1",
+      "type": "start",
+      "position": { "x": 250, "y": 50 },
+      "data": {
+        "label": "Start",
+        "title": "Performance Review Cycle Initiated",
+        "description": "Annual performance review cycle begins for all employees",
+        "metadata": {
+          "cycle": "Annual 2024-2025",
+          "period": "Jan 2024 - Dec 2024",
+          "initiator": "HR Department"
+        }
+      }
+    },
+    {
+      "id": "auto_1",
+      "type": "automated",
+      "position": { "x": 250, "y": 150 },
+      "data": {
+        "label": "Automated",
+        "title": "Send Review Notification",
+        "description": "Automated email to all employees announcing review cycle start",
+        "automationId": "send-email",
+        "automationParams": {
+          "to": "all_employees@company.com",
+          "subject": "Annual Performance Review Cycle 2024-2025",
+          "body": "The annual performance review cycle has begun. Please complete your self-assessment by [deadline]. Review guidelines and templates are attached.",
+          "attachments": ["review_guidelines.pdf", "self_assessment_template.xlsx"]
+        }
+      }
+    },
+    {
+      "id": "task_1",
+      "type": "task",
+      "position": { "x": 250, "y": 270 },
+      "data": {
+        "label": "Task",
+        "title": "Employee Self-Assessment",
+        "description": "Employee completes self-assessment covering achievements, challenges, skills development, and goal progress",
+        "assignee": "employee@company.com",
+        "dueDate": "2025-01-20",
+        "priority": "high",
+        "estimatedHours": 4,
+        "sections": [
+          "Key Achievements",
+          "Goals Met vs Missed",
+          "Skills Developed",
+          "Challenges Faced",
+          "Areas for Improvement",
+          "Career Aspirations"
+        ]
+      }
+    },
+    {
+      "id": "task_2",
+      "type": "task",
+      "position": { "x": 250, "y": 390 },
+      "data": {
+        "label": "Task",
+        "title": "Collect 360-Degree Feedback",
+        "description": "Gather feedback from peers, subordinates, and cross-functional stakeholders",
+        "assignee": "hr_system@company.com",
+        "dueDate": "2025-01-25",
+        "priority": "medium",
+        "feedbackSources": ["Peers (3-5)", "Direct Reports (if applicable)", "Cross-functional Partners"],
+        "anonymous": true
+      }
+    },
+    {
+      "id": "task_3",
+      "type": "task",
+      "position": { "x": 250, "y": 510 },
+      "data": {
+        "label": "Task",
+        "title": "Manager Performance Review",
+        "description": "Manager evaluates employee performance, reviews self-assessment, and provides detailed feedback",
+        "assignee": "manager@company.com",
+        "dueDate": "2025-02-05",
+        "priority": "high",
+        "estimatedHours": 3,
+        "evaluationCriteria": [
+          "Job Knowledge & Skills",
+          "Quality of Work",
+          "Productivity",
+          "Communication",
+          "Teamwork",
+          "Leadership (if applicable)",
+          "Innovation",
+          "Reliability"
+        ],
+        "ratingScale": "1-5"
+      }
+    },
+    {
+      "id": "auto_2",
+      "type": "automated",
+      "position": { "x": 250, "y": 630 },
+      "data": {
+        "label": "Automated",
+        "title": "Generate Performance Report",
+        "description": "Auto-generate comprehensive performance report with ratings, feedback, and analytics",
+        "automationId": "generate-pdf",
+        "automationParams": {
+          "template": "performance_report_template",
+          "fileName": "performance_review_2024.pdf",
+          "includeCharts": true,
+          "includeComparisons": true,
+          "include360Feedback": true
+        }
+      }
+    },
+    {
+      "id": "approval_1",
+      "type": "approval",
+      "position": { "x": 250, "y": 750 },
+      "data": {
+        "label": "Approval",
+        "title": "Department Head Calibration",
+        "description": "Department head reviews and calibrates ratings across team to ensure fairness and consistency",
+        "assignee": "dept_head@company.com",
+        "approverRole": "Department Head",
+        "autoApproveThreshold": 72,
+        "calibrationCriteria": ["Rating distribution", "Consistency across team", "Justification for ratings"]
+      }
+    },
+    {
+      "id": "approval_2",
+      "type": "approval",
+      "position": { "x": 250, "y": 870 },
+      "data": {
+        "label": "Approval",
+        "title": "HR Final Review & Approval",
+        "description": "HR reviews all performance assessments, ensures policy compliance, and gives final approval",
+        "assignee": "hr_head@company.com",
+        "approverRole": "HR Head",
+        "autoApproveThreshold": 96,
+        "checklistItems": [
+          "All sections completed",
+          "Ratings justified",
+          "Feedback constructive",
+          "Goals aligned with company objectives",
+          "No policy violations"
+        ]
+      }
+    },
+    {
+      "id": "task_4",
+      "type": "task",
+      "position": { "x": 250, "y": 990 },
+      "data": {
+        "label": "Task",
+        "title": "One-on-One Feedback Session",
+        "description": "Manager conducts face-to-face feedback session with employee to discuss review, ratings, and development plan",
+        "assignee": "manager@company.com",
+        "dueDate": "2025-02-20",
+        "priority": "high",
+        "estimatedHours": 1.5,
+        "location": "Meeting Room / Virtual",
+        "agenda": [
+          "Review overall performance",
+          "Discuss strengths and areas for improvement",
+          "Address employee concerns",
+          "Set development goals",
+          "Discuss career path"
+        ]
+      }
+    },
+    {
+      "id": "task_5",
+      "type": "task",
+      "position": { "x": 250, "y": 1110 },
+      "data": {
+        "label": "Task",
+        "title": "Set Goals for Next Cycle",
+        "description": "Collaboratively set SMART goals for the upcoming performance cycle",
+        "assignee": "employee@company.com",
+        "dueDate": "2025-02-25",
+        "priority": "high",
+        "estimatedHours": 2,
+        "goalCategories": [
+          "Performance Goals (3-5)",
+          "Development Goals (2-3)",
+          "Behavioral Goals (1-2)"
+        ],
+        "smartCriteria": "Specific, Measurable, Achievable, Relevant, Time-bound"
+      }
+    },
+    {
+      "id": "auto_3",
+      "type": "automated",
+      "position": { "x": 250, "y": 1230 },
+      "data": {
+        "label": "Automated",
+        "title": "Create Individual Development Plan",
+        "description": "Generate personalized development plan based on review feedback and career aspirations",
+        "automationId": "generate-pdf",
+        "automationParams": {
+          "template": "idp_template",
+          "fileName": "individual_development_plan_2025.pdf",
+          "includeTrainingRecommendations": true,
+          "includeMentorshipOptions": true,
+          "includeSkillGaps": true
+        }
+      }
+    },
+    {
+      "id": "auto_4",
+      "type": "automated",
+      "position": { "x": 250, "y": 1350 },
+      "data": {
+        "label": "Automated",
+        "title": "Update HR Records",
+        "description": "Update employee records in HRMS with review ratings, feedback, and new goals",
+        "automationId": "update-system",
+        "automationParams": {
+          "system": "HRMS",
+          "updateFields": [
+            "performance_rating",
+            "review_comments",
+            "goals_2025",
+            "development_plan",
+            "promotion_eligibility"
+          ],
+          "archivePreviousReview": true
+        }
+      }
+    },
+    {
+      "id": "auto_5",
+      "type": "automated",
+      "position": { "x": 250, "y": 1470 },
+      "data": {
+        "label": "Automated",
+        "title": "Send Completion Notification",
+        "description": "Send final notification to employee with review summary and next steps",
+        "automationId": "send-email",
+        "automationParams": {
+          "to": "employee@company.com",
+          "cc": "manager@company.com",
+          "subject": "Performance Review Completed - Next Steps",
+          "body": "Your performance review for 2024 has been completed. Please find attached your review summary, development plan, and goals for 2025. Schedule regular check-ins with your manager to track progress.",
+          "attachments": [
+            "performance_review_summary.pdf",
+            "development_plan.pdf",
+            "goals_2025.pdf"
+          ]
+        }
+      }
+    },
+    {
+      "id": "task_6",
+      "type": "task",
+      "position": { "x": 250, "y": 1590 },
+      "data": {
+        "label": "Task",
+        "title": "Schedule Quarterly Check-ins",
+        "description": "Set up quarterly progress review meetings for goal tracking",
+        "assignee": "manager@company.com",
+        "priority": "medium",
+        "recurring": true,
+        "frequency": "Quarterly",
+        "duration": "30 minutes"
+      }
+    },
+    {
+      "id": "end_1",
+      "type": "end",
+      "position": { "x": 250, "y": 1710 },
+      "data": {
+        "label": "End",
+        "title": "Performance Review Cycle Completed",
+        "message": "Annual performance review cycle completed successfully. Quarterly check-ins scheduled.",
+        "summary": true,
+        "notifyStakeholders": ["hr@company.com", "manager@company.com", "employee@company.com"]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start_1",
+      "target": "auto_1",
+      "type": "default",
+      "data": { "label": "Cycle Initiated" }
+    },
+    {
+      "id": "e2",
+      "source": "auto_1",
+      "target": "task_1",
+      "type": "default",
+      "data": { "label": "Notification Sent" }
+    },
+    {
+      "id": "e3",
+      "source": "task_1",
+      "target": "task_2",
+      "type": "default",
+      "data": { "label": "Self-Assessment Complete" }
+    },
+    {
+      "id": "e4",
+      "source": "task_2",
+      "target": "task_3",
+      "type": "default",
+      "data": { "label": "360 Feedback Collected" }
+    },
+    {
+      "id": "e5",
+      "source": "task_3",
+      "target": "auto_2",
+      "type": "default",
+      "data": { "label": "Manager Review Complete" }
+    },
+    {
+      "id": "e6",
+      "source": "auto_2",
+      "target": "approval_1",
+      "type": "default",
+      "data": { "label": "Report Generated" }
+    },
+    {
+      "id": "e7",
+      "source": "approval_1",
+      "target": "approval_2",
+      "type": "default",
+      "data": { "label": "Calibration Done" }
+    },
+    {
+      "id": "e8",
+      "source": "approval_2",
+      "target": "task_4",
+      "type": "default",
+      "data": { "label": "HR Approved" }
+    },
+    {
+      "id": "e9",
+      "source": "task_4",
+      "target": "task_5",
+      "type": "default",
+      "data": { "label": "Feedback Session Complete" }
+    },
+    {
+      "id": "e10",
+      "source": "task_5",
+      "target": "auto_3",
+      "type": "default",
+      "data": { "label": "Goals Set" }
+    },
+    {
+      "id": "e11",
+      "source": "auto_3",
+      "target": "auto_4",
+      "type": "default",
+      "data": { "label": "IDP Created" }
+    },
+    {
+      "id": "e12",
+      "source": "auto_4",
+      "target": "auto_5",
+      "type": "default",
+      "data": { "label": "Records Updated" }
+    },
+    {
+      "id": "e13",
+      "source": "auto_5",
+      "target": "task_6",
+      "type": "default",
+      "data": { "label": "Completion Notified" }
+    },
+    {
+      "id": "e14",
+      "source": "task_6",
+      "target": "end_1",
+      "type": "default",
+      "data": { "label": "Check-ins Scheduled" }
+    }
+  ]
+}
