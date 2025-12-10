@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { WorkflowNodeData, AutomationAction } from '../types/workflow';
+import { useFormValidation } from '../hooks/useFormValidation';
 
 interface NodeEditModalProps {
   node: any;
@@ -10,6 +11,21 @@ interface NodeEditModalProps {
 
 export const NodeEditModal = ({ node, automations, onSave, onClose }: NodeEditModalProps) => {
   const [formData, setFormData] = useState<WorkflowNodeData>({ label: '' });
+  
+  const validationRules = [
+    { field: 'label', required: true, minLength: 1, maxLength: 50 },
+    { field: 'title', minLength: 3, maxLength: 100 },
+    { 
+      field: 'assignee', 
+      pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      custom: (value: string) => {
+        if (value && !value.includes('@')) return 'Please enter a valid email address';
+        return null;
+      }
+    },
+  ];
+  
+  const { errors, validate, hasErrors } = useFormValidation(validationRules);
 
   useEffect(() => {
     if (node) {
@@ -22,8 +38,10 @@ export const NodeEditModal = ({ node, automations, onSave, onClose }: NodeEditMo
   };
 
   const handleSave = () => {
-    onSave(node.id, formData);
-    onClose();
+    if (validate(formData)) {
+      onSave(node.id, formData);
+      onClose();
+    }
   };
 
   const selectedAutomation = automations.find(a => a.id === formData.automationId);
@@ -44,7 +62,9 @@ export const NodeEditModal = ({ node, automations, onSave, onClose }: NodeEditMo
               type="text"
               value={formData.label || ''}
               onChange={(e) => handleChange('label', e.target.value)}
+              className={errors.label ? 'error' : ''}
             />
+            {errors.label && <span className="error-text">{errors.label}</span>}
           </div>
 
           {node.type !== 'start' && node.type !== 'end' && (
@@ -150,7 +170,11 @@ export const NodeEditModal = ({ node, automations, onSave, onClose }: NodeEditMo
           <button className="btn-secondary" onClick={onClose}>
             Cancel
           </button>
-          <button className="btn-primary" onClick={handleSave}>
+          <button 
+            className="btn-primary" 
+            onClick={handleSave}
+            disabled={hasErrors}
+          >
             Save Changes
           </button>
         </div>
