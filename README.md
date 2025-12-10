@@ -1,148 +1,116 @@
 # HR Workflow Designer
 
-A visual workflow designer for HR processes built with React, TypeScript, and React Flow. Create, configure, and simulate automated workflows with a drag-and-drop interface.
+Visual workflow designer for HR processes built with React, TypeScript, and React Flow. Create, configure, and simulate automated workflows with drag-and-drop interface.
+
+**Live Demo**: [https://assignment-tred.vercel.app/](https://assignment-tred.vercel.app/)
 
 ## How to Run
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
 npm run dev
-
-# Build for production
-npm run build
 ```
 
 Open [http://localhost:5173](http://localhost:5173) to view the application.
 
 ## Architecture
 
-### Core Technologies
-- **React 18** with TypeScript for type safety
-- **React Flow** for visual workflow canvas and node management
-- **Vite** for fast development and optimized builds
+### Technology Stack
+- **React 18** with TypeScript for type safety and concurrent features
+- **React Flow** for visual workflow canvas with custom node rendering
+- **Vite** for fast development and optimized production builds
+- **Custom Hooks** for state management and reusable logic
+- **Context API** for global workflow state management
 
 ### Project Structure
 ```
 src/
 ├── components/
 │   ├── nodes/              # Custom React Flow node types
-│   ├── NodeEditModal.tsx   # Dynamic form handling with validation
+│   ├── NodeEditModal.tsx   # Dynamic form with validation
 │   ├── SimulationPanel.tsx # Workflow testing interface
 │   └── ContextMenu.tsx     # Right-click node creation
 ├── hooks/
 │   ├── useWorkflowState.ts # State management with history
-│   └── useFormValidation.ts # Reusable form validation
+│   └── useFormValidation.ts # Form validation engine
 ├── context/
 │   └── WorkflowContext.tsx # Global workflow state
 ├── api/
 │   └── mockApi.ts          # Abstracted data layer
-├── types/
-│   └── workflow.ts         # TypeScript definitions
 └── utils/
-    ├── validation.ts       # Workflow validation logic
-    └── performance.ts      # Optimization utilities
+    └── validation.ts       # Workflow validation logic
 ```
-
-### Key Architectural Decisions
-
-**Custom Hooks Pattern**: Extracted complex state logic into reusable hooks (`useWorkflowState`, `useFormValidation`) for better testability and code reuse.
-
-**Context + Hooks**: Combined React Context with custom hooks to provide clean global state management without external dependencies.
-
-**Abstracted API Layer**: Mock API designed to mirror real backend structure, making production integration seamless.
-
-**Multi-directional Node Connections**: All nodes support connections from any edge (top, bottom, left, right) for flexible workflow layouts.
-
-**Dynamic Form Validation**: Real-time validation with configurable rules, supporting complex conditional fields based on node types.
 
 ## Design Decisions
 
 ### React Flow Integration
-- **Custom Node Types**: 5 specialized node components (Start, Task, Approval, Automated, End)
-- **Editable Edges**: Click any connection to add descriptive labels
+- **Multi-directional Connections**: All nodes support connections from any edge (top, bottom, left, right)
+- **Custom Node Types**: 5 specialized components (Start, Task, Approval, Automated, End)
+- **Editable Edges**: Click connections to add descriptive labels
 - **Context Menu**: Right-click canvas for intuitive node creation
-- **Multi-handle Nodes**: Connect from any side for complex workflow patterns
 
-### State Management Strategy
-- **Local Component State**: UI interactions and temporary data
-- **Workflow State Hook**: Centralized workflow data with undo/redo history
-- **Context Provider**: Cross-component data sharing for deep component trees
-- **Auto-persistence**: Automatic localStorage saves with debounced updates
+### State Management
+- **Custom Hooks**: Extracted complex logic into `useWorkflowState` and `useFormValidation`
+- **Context Pattern**: Global state with React Context for cross-component data sharing
+- **Command Pattern**: Undo/redo functionality with immutable state snapshots
+- **Auto-persistence**: Debounced localStorage saves for workflow recovery
 
 ### Performance Optimizations
-- **Memoized Computations**: Expensive operations cached with `useMemo`
-- **Debounced Auto-save**: Prevents excessive localStorage writes
-- **Virtual Scrolling**: Ready for large workflow handling
-- **Optimized Re-renders**: Strategic use of `useCallback` to prevent unnecessary updates
+- **Memoization**: Strategic use of `useMemo` and `useCallback` for expensive operations
+- **Form Validation**: Real-time validation with configurable rules and error feedback
+- **Debounced Updates**: Prevents excessive re-renders and localStorage writes
 
 ## What's Completed
 
-### Core Functionality ✅
+### Core Features ✅
 - Visual workflow canvas with drag-and-drop node creation
-- 5 custom node types with specialized properties
-- Multi-directional node connections (all edges)
-- Editable connection labels
-- Real-time node configuration panel
-- Comprehensive workflow validation
-- Step-by-step simulation engine
-- Undo/redo with keyboard shortcuts (Ctrl+Z/Ctrl+Y)
-- Auto-save to localStorage
-- Template system with pre-built workflows
-
-### Advanced Features ✅
-- Dynamic form validation with real-time feedback
+- 5 custom node types with specialized properties and multi-directional connections
+- Editable connection labels with inline editing
+- Real-time node configuration panel with dynamic forms
+- Comprehensive workflow validation (cycles, reachability, required nodes)
+- Step-by-step simulation engine with mock API integration
+- Undo/redo functionality with keyboard shortcuts (Ctrl+Z/Ctrl+Y)
+- Auto-save to localStorage with workflow recovery
+- Template system with pre-built HR workflows
 - Context menu for rapid node creation
-- Workflow error visualization
-- Mock API layer with realistic async patterns
-- Performance monitoring utilities
-- Responsive design with minimap and controls
+- Workflow error visualization with visual indicators
 
-### Code Quality ✅
-- Comprehensive TypeScript coverage
-- Custom hooks for reusable logic
-- Clean component architecture
-- Separation of concerns
-- Error boundaries and graceful degradation
+### Technical Implementation ✅
+- TypeScript with strict type checking and discriminated unions
+- Custom React hooks for reusable state logic
+- Context API for global state management
+- Dynamic form validation with real-time feedback
+- Performance optimizations with memoization strategies
+- Mock API layer designed for seamless backend integration
+- Responsive design with minimap and canvas controls
 
 ## What Would Be Added With More Time
 
 ### Enterprise Features
-- **Real Backend Integration**: Replace mock API with actual HR system connections
-- **User Authentication**: Role-based access control and permissions
-- **Real-time Collaboration**: Multi-user editing with WebSocket synchronization
-- **Advanced Analytics**: Workflow performance metrics and bottleneck analysis
-- **Audit Trail**: Complete change history with user attribution
+- **Real Backend Integration**: Replace mock API with actual HR system connections using REST/GraphQL
+- **Authentication & Authorization**: JWT-based auth with role-based access control (RBAC)
+- **Real-time Collaboration**: WebSocket integration for multi-user editing with operational transforms
+- **Advanced Analytics**: Workflow performance metrics, bottleneck detection, and execution dashboards
+- **Audit Trail**: Complete change history with user attribution and compliance reporting
 
-### Enhanced UX
-- **Auto-layout Algorithm**: Intelligent node positioning using dagre or elk.js
-- **Conditional Branching**: Decision nodes with multiple output paths
-- **Advanced Templates**: Industry-specific workflow libraries
-- **Mobile Optimization**: Touch-friendly interface for tablets
-- **Accessibility Improvements**: Enhanced screen reader support and keyboard navigation
+### Enhanced User Experience
+- **Auto-layout Algorithm**: Intelligent node positioning using dagre.js or elk.js for automatic graph layout
+- **Conditional Branching**: Decision nodes with multiple output paths and conditional logic
+- **Advanced Templates**: Industry-specific workflow libraries with parameterized templates
+- **Mobile Optimization**: Touch-friendly interface optimized for tablets and mobile devices
+- **Accessibility**: WCAG 2.1 compliance with screen reader support and keyboard navigation
 
-### Scalability Improvements
-- **Plugin Architecture**: Custom node type registration system
-- **Webhook Integration**: External system notifications and triggers
-- **Advanced Validation**: Business rule engine for complex workflow constraints
-- **Performance Optimization**: Virtual canvas rendering for massive workflows
-- **Internationalization**: Multi-language support with i18n framework
+### Scalability & Performance
+- **Virtual Canvas**: Efficient rendering for workflows with thousands of nodes using virtualization
+- **Plugin Architecture**: Extensible system for custom node types and integrations
+- **Webhook Integration**: External system notifications and event-driven triggers
+- **Advanced Validation**: Business rule engine with complex constraint validation
+- **Internationalization**: Multi-language support with i18n framework integration
 
 ### Developer Experience
-- **Comprehensive Testing**: Unit, integration, and E2E test coverage
-- **Storybook Integration**: Component documentation and visual testing
-- **CI/CD Pipeline**: Automated testing, building, and deployment
-- **Performance Monitoring**: Real-time performance metrics and alerting
+- **Comprehensive Testing**: Unit tests with Jest, integration tests with React Testing Library, E2E with Playwright
+- **Storybook Integration**: Component documentation and visual regression testing
+- **CI/CD Pipeline**: Automated testing, building, and deployment with GitHub Actions
+- **Performance Monitoring**: Real-time metrics with Sentry and performance profiling tools
 
-## Technical Highlights
-
-This implementation demonstrates:
-- **React Flow Mastery**: Custom nodes, edge management, and advanced canvas interactions
-- **Modern React Patterns**: Hooks, Context, performance optimization, and clean architecture
-- **Complex Form Handling**: Dynamic validation, conditional fields, and real-time feedback
-- **Scalable Architecture**: Modular design ready for enterprise requirements
-- **Production Readiness**: Error handling, persistence, and user experience polish
-
-The codebase balances rapid prototyping with production-quality patterns, showcasing both delivery speed and architectural thinking.
+This implementation demonstrates React Flow mastery, modern React patterns, complex form handling, and scalable architecture ready for enterprise deployment.
